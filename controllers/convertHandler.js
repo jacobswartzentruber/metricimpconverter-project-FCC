@@ -1,15 +1,17 @@
 function ConvertHandler() {
   
   this.getNum = function(input) {
-    let result = input.split(/(?<=\d)(?=[a-zA-Z])/);;
-    
-    return result[0];
+    let index = input.search(/[a-zA-Z]/);
+    let result = input.slice(0, index);
+ 
+    return +eval(result).toFixed(5);
   };
   
   this.getUnit = function(input) {
-    let result = input.split(/(?<=\d)(?=[a-zA-Z])/);
+    let index = input.search(/[a-zA-Z]/);
+    let result = input.slice(index);
     
-    return result[1];
+    return result;
   };
   
   this.getReturnUnit = function(initUnit) {
@@ -57,25 +59,25 @@ function ConvertHandler() {
 
     switch(initUnit){
       case 'gal':
-        return initNum * galToL;
+        return (initNum * galToL).toFixed(5);
         break;
       case 'L':
-        return initNum / galToL;
+        return (initNum / galToL).toFixed(5);
         break;
       case 'mi':
-        return initNum * miToKm;
+        return (initNum * miToKm).toFixed(5);
         break;
       case 'km':
-        return initNum / miToKm;
+        return (initNum / miToKm).toFixed(5);
         break;
       case 'lbs':
-        return initNum * lbsToKg;
+        return (initNum * lbsToKg).toFixed(5);
         break;
       case 'kg':
-        return initNum / lbsToKg;
+        return (initNum / lbsToKg).toFixed(5);
         break;
       default:
-        return "Unit not found"
+        return "Unit not found, cannot convert"
     }   
   };
   

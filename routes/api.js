@@ -14,7 +14,14 @@ module.exports = function (app) {
       let initUnit = convertHandler.getUnit(req.query.input);
       let returnNum = convertHandler.convert(initNum, initUnit);
       let returnUnit = convertHandler.getReturnUnit(initUnit);
-      console.log(convertHandler.getString(initNum, initUnit, returnNum, returnUnit));
+      
+      res.json({
+        initNum: initNum,
+        initUnit: initUnit,
+        returnNum: returnNum,
+        returnUnit: returnUnit,
+        string: convertHandler.getString(initNum, initUnit, returnNum, returnUnit)
+      })
     });
 
 };
