@@ -31,9 +31,9 @@ suite('Unit Tests', function(){
         });
 
         test('should correctly return error on a double-fraction', function(){
-            assert.equal(convertHandler.getNum('3/4/6lbs'), "error");
-            assert.equal(convertHandler.getNum('1/3.03/4/6mi'), "error");
-            assert.equal(convertHandler.getNum('1//0.3gal'), "error");
+            assert.equal(convertHandler.getNum('3/4/6lbs'), "invalid number");
+            assert.equal(convertHandler.getNum('1/3.03/4/6mi'), "invalid number");
+            assert.equal(convertHandler.getNum('1//0.3gal'), "invalid number");
         });
 
         test('should correctly default to a numerical value of 1 when no numerical input provided', function(){
@@ -45,18 +45,18 @@ suite('Unit Tests', function(){
 
     suite('Validate Input Unit', function(){
         test('should correctly read each valid input unit', function(){
-            assert.equal(convertHandler.getUnit('34gal'), 'gal');
+            assert.equal(convertHandler.getUnit('34Gal'), 'gal');
             assert.equal(convertHandler.getUnit('3.4L'), 'L');
             assert.equal(convertHandler.getUnit('2/4mi'), 'mi');
-            assert.equal(convertHandler.getUnit('23km'), 'km');
+            assert.equal(convertHandler.getUnit('23Km'), 'km');
             assert.equal(convertHandler.getUnit('2/6lbs'), 'lbs');
             assert.equal(convertHandler.getUnit('2/2.6kg'), 'kg');
         });
 
         test('should correctly return an error for invalid input unit', function(){
-            assert.equal(convertHandler.getUnit('23k'), 'error');
-            assert.equal(convertHandler.getUnit('2'), 'error');
-            assert.equal(convertHandler.getUnit('2/2.6lbs3'), 'error');
+            assert.equal(convertHandler.getUnit('23k'), 'invalid unit');
+            assert.equal(convertHandler.getUnit('2'), 'invalid unit');
+            assert.equal(convertHandler.getUnit('2/2.6lbs3'), 'invalid unit');
         });
 
         test('should correctly return the correct return unit for valid input unit', function(){

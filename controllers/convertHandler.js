@@ -2,15 +2,32 @@ function ConvertHandler() {
   
   this.getNum = function(input) {
     let index = input.search(/[a-zA-Z]/);
-    let result = input.slice(0, index);
- 
-    return +eval(result).toFixed(5);
+    let number = input.slice(0, index);
+
+    //If no number provided, return 1
+    if(number == '') return 1;
+
+    //Account for input as fractions
+    let fractions = number.split('/');
+
+    if(fractions.length > 2) return 'invalid number'
+
+    if(fractions.length > 1) return +(parseFloat(fractions[0]) / parseFloat(fractions[1])).toFixed(5);
+
+    //If no fractions input, return number
+    return +parseFloat(number).toFixed(5);
   };
   
   this.getUnit = function(input) {
+    const measures = ['gal', 'l', 'mi', 'km', 'lbs', 'kg'];
+
     let index = input.search(/[a-zA-Z]/);
-    let result = input.slice(index);
-    
+    let result = input.slice(index).toLowerCase();
+
+    result = measures.includes(result) ? result : "invalid unit"
+
+    if(result == 'l') result = 'L';
+
     return result;
   };
   
@@ -35,7 +52,7 @@ function ConvertHandler() {
         return 'lbs';
         break;
       default:
-        return "Unit not found"
+        return "Unit not found, cannot get return unit"
     }    
   };
 
@@ -59,22 +76,22 @@ function ConvertHandler() {
 
     switch(initUnit){
       case 'gal':
-        return (initNum * galToL).toFixed(5);
+        return +(initNum * galToL).toFixed(5);
         break;
       case 'L':
-        return (initNum / galToL).toFixed(5);
+        return +(initNum / galToL).toFixed(5);
         break;
       case 'mi':
-        return (initNum * miToKm).toFixed(5);
+        return +(initNum * miToKm).toFixed(5);
         break;
       case 'km':
-        return (initNum / miToKm).toFixed(5);
+        return +(initNum / miToKm).toFixed(5);
         break;
       case 'lbs':
-        return (initNum * lbsToKg).toFixed(5);
+        return +(initNum * lbsToKg).toFixed(5);
         break;
       case 'kg':
-        return (initNum / lbsToKg).toFixed(5);
+        return +(initNum / lbsToKg).toFixed(5);
         break;
       default:
         return "Unit not found, cannot convert"
